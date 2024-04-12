@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      notify_third_party_apis
       render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       render json: @user, status: :ok
+      def notify_third_party_apis
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -26,6 +28,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def notify_third_party_apis
+
   end
 
 end
